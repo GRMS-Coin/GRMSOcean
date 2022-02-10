@@ -87,21 +87,12 @@ jobs:
       - uses: actions/checkout@v2
       - name: Install dependencies (macOS)
         run: |
-          /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-          brew update
-          brew upgrade
-          brew tap discoteq/discoteq; brew install flock
-          brew install autoconf autogen automake
-          brew install binutils
-          brew install protobuf
-          brew install coreutils
-          brew install wget
-          brew install python3
-          brew install berkeley-db4 libtool boost miniupnpc openssl pkg-config python qt libevent qrencode
-          brew install librsvg
+          sudo apt-get update
+          sudo ACCEPT_EULA=Y apt-get upgrade -y
+          sudo apt-get install curl librsvg2-bin libtiff-tools bsdmainutils cmake imagemagick libcap-dev libz-dev libbz2-dev python3-setuptools libtinfo5 xorriso -y
       - name: Build (macOS)
         run: |
-          ./zcutil/build-mac.sh -j8
+          ./zcutil/build-mac-cross.sh -j$(nproc)
           zip --junk-paths grmscoin-qt-mac src/komodod src/komodo-cli grmscoin-qt
       - name: Upload grmscoin-qt-mac.zip
         uses: actions/upload-artifact@v1
