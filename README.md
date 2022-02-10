@@ -1,6 +1,6 @@
 # GRMSOcean (komodo-qt) #
 
-![Downloads](https://img.shields.io/github/downloads/DeckerSU/KomodoOcean/total)
+![Downloads](https://img.shields.io/github/downloads/GRMS-Coin/GRMSOcean/total)
 
 
 Komodo-Qt (KomodoOcean) is a world-first Qt native wallet for KMD ([Komodo](https://komodoplatform.com/)) and smartchains (assetchains). It's available for three OS platforms - Windows, Linux, MacOS.
