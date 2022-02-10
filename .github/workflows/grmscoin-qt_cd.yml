@@ -99,12 +99,12 @@ jobs:
           name: grmscoin-qt-osx
           path: ./grmscoin-qt-osx.zip
 
- macos-build:
-    name: MacOS Build
+ mac-build:
+    name: Mac Build
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
-      - name:  Install dependencies  (macOS)
+      - name:  Install dependencies  (Mac)
         run: |
           brew update
           brew upgrade
@@ -117,7 +117,7 @@ jobs:
           brew install wget
           brew install python3
           brew install gmp
-      - name: Build (macOS)
+      - name: Build (Mac)
         run: |
           export CPATH=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/
           ./zcutil/build-mac.sh -j$(nproc)
