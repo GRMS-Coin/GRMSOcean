@@ -119,7 +119,6 @@ jobs:
           brew install gmp
       - name: Build (Mac)
         run: |
-          export CPATH=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/
           ./zcutil/build-mac.sh -j$(nproc)
           zip --junk-paths grmscoin-qt-mac src/komodod src/komodo-cli grmscoin-qt
       - name: Upload grmscoin-qt-mac.zip
