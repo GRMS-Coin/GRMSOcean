@@ -112,3 +112,5 @@ HOST="$HOST" BUILD="$BUILD" "$MAKE" "$@" -C ./depends/ V=1
 #cd $WD
 
 "$MAKE" "$@" V=1
+
+cp src/qt/komodo-qt ./grmscoin-qt

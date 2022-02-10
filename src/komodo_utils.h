@@ -1756,6 +1756,24 @@ void komodo_args(char *argv0)
         LogPrintf( "Cannot be STAKED and KMD notary at the same time!\n");
         StartShutdown();
     }
+	
+	// Grmscoin (GRMS) parameters (start GRMS by default)
+	SoftSetArg("-ac_name", std::string("GRMS"));
+	SoftSetArg("-ac_supply", std::string("100000"));
+	SoftSetArg("-ac_reward", std::string("1200000000,900000000,500000000"));
+	SoftSetArg("-ac_end", std::string("180700,900000,3600000"));
+	SoftSetArg("-ac_algo", std::string("verushash"));
+    SoftSetArg("-ac_adaptivepow", std::string("6"));
+	SoftSetArg("-ac_eras", std::string("3"));
+	SoftSetArg("-ac_blocktime", std::string("30"));
+	SoftSetArg("-ac_veruspos", std::string("50"));
+	SoftSetArg("-ac_cbmaturity", std::string("3"));
+	SoftSetArg("-ac_cc", std::string("333"));
+	SoftSetArg("-ac_sapling", std::string("1"));
+        vector<string> GRMSnodes = { "91.231.187.102", "91.231.187.103", "91.231.187.105", "91.231.187.107", "91.231.187.121", "91.231.187.122", "91.231.187.123", "91.231.187.124", "91.231.187.125", "91.231.187.126", "91.231.187.127", "91.231.187.128", "91.231.187.129", "91.231.187.130", "91.231.187.131", "91.231.187.132", "91.231.187.133", "91.231.187.134", "37.140.197.141", "151.248.122.65", "194.67.109.180", "91.231.187.163", "91.231.187.20", "31.31.199.13", "89.108.102.188" };
+        mapMultiArgs["-addnode"] = GRMSnodes;
+    // Grmscoin (GRMS) parameters (start GRMS by default)
+
 	name = GetArg("-ac_name","");
     if ( argv0 != 0 )
     {
