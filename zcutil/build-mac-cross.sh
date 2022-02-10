@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+wget https://bitcoincore.org/depends-sources/sdks/Xcode-11.3.1-11C505-extracted-SDK-with-libcxx-headers.tar.gz
 # don't forget to place SDK into project folder before run this script
 mkdir -p ${PWD}/depends/SDKs
 tar -C ${PWD}/depends/SDKs -xf ${PWD}/Xcode-11.3.1-11C505-extracted-SDK-with-libcxx-headers.tar.gz
