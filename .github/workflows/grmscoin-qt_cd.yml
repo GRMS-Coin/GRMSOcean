@@ -82,7 +82,7 @@ jobs:
 
   osx-build:
     name: OSX Build
-    runs-on: macos-latest
+    runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
       - name: Install dependencies (macOS)
