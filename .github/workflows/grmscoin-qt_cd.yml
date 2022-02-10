@@ -98,31 +98,3 @@ jobs:
         with:
           name: grmscoin-qt-osx
           path: ./grmscoin-qt-osx.zip
-
- mac-build:
-    name: Mac Build
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name:  Install dependencies  (Mac)
-        run: |
-          brew update
-          brew upgrade
-          brew tap discoteq/discoteq; brew install flock
-          brew install autoconf autogen automake
-          brew install gcc@8
-          brew install binutils
-          brew install protobuf
-          brew install coreutils
-          brew install wget
-          brew install python3
-          brew install gmp
-      - name: Build (Mac)
-        run: |
-          ./zcutil/build-mac.sh -j$(nproc)
-          zip --junk-paths grmscoin-qt-mac src/komodod src/komodo-cli grmscoin-qt
-      - name: Upload grmscoin-qt-mac.zip
-        uses: actions/upload-artifact@v1
-        with:
-          name: grmscoin-qt-mac
-          path: ./grmscoin-qt-mac.zip
