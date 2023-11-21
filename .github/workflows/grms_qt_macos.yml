@@ -1,0 +1,41 @@
+name: GRMS qt build - MacOS
+
+
+on:
+  push:
+    branches:
+    - master
+    - main
+    - grms
+
+
+jobs:
+
+  osx-build:
+    name: OSX Build
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install deps (macOS)
+        run: |
+          brew update
+          brew upgrade
+          brew tap discoteq/discoteq; brew install flock
+          brew install autoconf autogen automake
+          brew install gcc@8
+          brew install gmp
+          brew install binutils
+          brew install protobuf
+          brew install coreutils
+          brew install wget
+          brew install python3
+      - name: Build (macOS)
+        run: |
+          ./zcutil/build-mac.sh -j4
+          mv src/qt/komodo-qt src/qt/grms-qt-osx
+          zip --junk-paths grms-qt-osx src/qt/grms-qt-osx
+      - name: Upload grms-qt-osx.zip as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: grms-qt-osx
+          path: ./grms-qt-osx.zip

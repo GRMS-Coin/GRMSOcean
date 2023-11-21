@@ -1,0 +1,47 @@
+name: GRMS qt build - Ubuntu latest
+
+
+on:
+  push:
+    branches:
+    - master
+    - main
+    - grms
+
+
+jobs:
+
+  linux-build:
+    name: Linux Build
+    # using there as old release as possible with GHA worker to provide better compatibility
+    runs-on: ubuntu-20.04
+    steps:
+
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+
+      - name: Shortify commit sha
+        shell: bash
+        run: echo "##[set-output name=sha_short;]$(echo ${GITHUB_SHA::7})"
+        id: shortify_commit
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install deps (Linux)
+        run: |
+          sudo apt-get update
+          sudo apt-get upgrade -y
+          sudo apt-get install -q libc6-dev g++-multilib ncurses-dev bison zlib1g-dev libcurl4-gnutls-dev bsdmainutils -y
+      - name: Build (Linux)
+        run: |
+          ./zcutil/build.sh  -j$(nproc)
+          mv src/qt/komodo-qt src/qt/grms-qt-linux
+          zip --junk-paths grms-qt-linux src/qt/grms-qt-linux
+      - name: Upload grms-qt-linux.zip as artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: grms-qt-linux
+          path: ./grms-qt-linux.zip

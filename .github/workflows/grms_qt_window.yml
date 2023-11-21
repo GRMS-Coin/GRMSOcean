@@ -1,0 +1,41 @@
+name: GRMS qt build - Windows cross compile latest
+
+
+on:
+  push:
+    branches:
+    - master
+    - main
+    - grms
+
+
+jobs:
+
+  windows-build:
+    name: Windows Build (mingw)
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install deps (Windows)
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          sudo apt-get update
+          sudo apt-get upgrade -y
+          sudo apt-get install -q libc6-dev g++-multilib libtool ncurses-dev python3-zmq zlib1g-dev libcurl4-gnutls-dev bsdmainutils cmake mingw-w64 -y
+          curl https://sh.rustup.rs -sSf | sh -s -- -y
+          source $HOME/.cargo/env
+          rustup target add x86_64-pc-windows-gnu
+          sudo update-alternatives --set x86_64-w64-mingw32-gcc /usr/bin/x86_64-w64-mingw32-gcc-posix
+          sudo update-alternatives --set x86_64-w64-mingw32-g++ /usr/bin/x86_64-w64-mingw32-g++-posix
+      - name: Build (Windows)
+        run: |
+          ./zcutil/build-win.sh -j$(nproc)
+          mv src/qt/komodo-qt.exe src/qt/grms-qt-win.exe
+          zip --junk-paths grms-qt-win src/qt/grms-qt-win.exe
+      - name: Upload grms-qt-win.zip as artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: grms-qt-win
+          path: ./grms-qt-win.zip
